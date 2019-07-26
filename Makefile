@@ -25,4 +25,4 @@ fastqc_final: ./bash_scripts/auto_fastqc_final.sh outputs/readsFiltered/*_filter
 	./bash_scripts/auto_fastqc_final.sh
 
 clean:
-	rm -r fastqc
+	rm -r outputs
