@@ -1,5 +1,5 @@
-# Pipeline to analyze Cyanobacteria genomes
-## From raw fastqc read files to Quality Assessment and Feature Prediction
+# Pipeline to analyse Cyanobacteria genomes
+## From raw fastq read files to Quality Assessment and Feature Prediction
 
 **Usage:**
 
