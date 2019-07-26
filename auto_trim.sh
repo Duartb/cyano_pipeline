@@ -2,11 +2,15 @@
 
 # Utilizar numa pasta que contenha os pair files (_001 e _002) das raw reads e o respetivo genomas de referencia com a terminaçao "_reference.fasta".
 
-mkdir readsTrimmed
+mkdir -p readsTrimmed
 
-for f in ./raw/*.fq;
+source /home/dbalata/miniconda3/bin/activate cutadapt_env
+
+for f in ./rawReads/*.fq;
 do
- out="trimmed_${f:6:-3}.fq"
+ out="${f:11:-3}_trimmed.fq"
  echo -e "Running:\ncutadapt -u 17 -u -5 ./$f -o ./readsTrimmed/$out"
  cutadapt -u 17 -u -5 ./$f -o ./readsTrimmed/$out;
 done
+
+conda deactivate
