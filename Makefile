@@ -3,7 +3,8 @@
 SHELL := /bin/bash
 CONDAROOT := /home/dbalata/miniconda3
 
-all: rawReads/*.fq fastqc_raw outputs/readsTrimmed/*_trimmed.fastq outputs/readsFiltered/*_filtered.fastq fastqc_final
+all: rawReads/*.fq fastqc_raw outputs/readsTrimmed/*_trimmed.fastq outputs/readsFiltered/*_filtered.fastq fastqc_final \
+	outputs/spadesOut/*/scaffolds.fasta
 
 rawReads/*.fq: bash_scripts/rename.sh rawReads/*R1_001.fastq rawReads/*R2_001.fastq
 	./bash_scripts/rename.sh
@@ -23,6 +24,10 @@ outputs/readsFiltered/*_filtered.fastq: ./bash_scripts/auto_filter.sh outputs/re
 # uses FastQC
 fastqc_final: ./bash_scripts/auto_fastqc_final.sh outputs/readsFiltered/*_filtered.fastq
 	./bash_scripts/auto_fastqc_final.sh
+
+# uses Spades
+outputs/spadesOut/*/scaffolds.fasta: ./bash_scripts/auto_spades.sh outputs/readsFiltered/*_filtered.fastq
+	./bash_scripts/auto_spades.sh
 
 clean:
 	rm -r outputs

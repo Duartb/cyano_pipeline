@@ -8,7 +8,7 @@ source /home/dbalata/miniconda3/bin/activate cutadapt_env
 
 for f in ./rawReads/*.fq;
 do
- out="${f:19:-3}_trimmed.fq"
+ out="${f:11:-3}_trimmed.fq"
  echo -e "Running:\ncutadapt -u 17 -u -5 ./$f -o ./outputs/readsTrimmed/$out"
  cutadapt -u 17 -u -5 $f -o ./outputs/readsTrimmed/$out;
 done
