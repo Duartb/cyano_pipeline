@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-
-# Utilizar numa pasta que contenha os pair files (_001 e _002) das raw reads e o respetivo genomas de referencia com a terminaçao "_reference.fasta".
+set -e
 
 mkdir -p ./outputs/readsTrimmed
 
@@ -9,8 +8,8 @@ source activate cutadapt_env
 for f in ./rawReads/*.fastq;
 do
  out="${f:11:-6}_trimmed.fastq"
- echo -e "Running: cutadapt -u $1 -u $2 $f -o ./outputs/readsTrimmed/$out"
- cutadapt -u $1 -u $2 $f -o ./outputs/readsTrimmed/$out;
+ echo -e "$(date) [CUTADAPT_TRIMMING] cutadapt -u $1 -u $2 $f -o ./outputs/readsTrimmed/$out : done" | tee -a ./outputs/commands.log
+ cutadapt -u $1 -u $2 $f -o ./outputs/readsTrimmed/$out 2>> ./outputs/console.log;
 done
 
 conda deactivate

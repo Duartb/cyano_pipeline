@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
-
-# Utilizar numa pasta que contenha os subdiretórios dos genomas assemblados e o respetivo genomas de referencia com a terminaçao "_ref.fasta".
-
-#mkdir bbmap_out
+set -e
 
 mkdir -p ./outputs/quastOut
 
@@ -16,8 +13,8 @@ done
 for f in ./outputs/spadesOut/*/scaffolds.fasta;
 do
  out="${f:20:-16}";
- echo -e "Running: python /home/dbalata/miniconda3/envs/quast_env/bin/quast  -r $ref -t $1 -o ./outputs/quastOut/$out $f"
- python /home/dbalata/miniconda3/envs/quast_env/bin/quast  -r $ref -t $1 -o ./outputs/quastOut/$out $f;
+ echo -e "$(date) [QUAST] python /home/dbalata/miniconda3/envs/quast_env/bin/quast  -r $ref -t $1 -o ./outputs/quastOut/$out $f  : done" | tee -a ./outputs/commands.log
+ python /home/dbalata/miniconda3/envs/quast_env/bin/quast  -r $ref -t $1 -o ./outputs/quastOut/$out $f 2>> ./outputs/console.log;
 done
 
 conda deactivate

@@ -61,7 +61,7 @@ outputs/quastOut/%/report.pdf: ./bash_scripts/auto_quast.sh outputs/spadesOut/%/
 	./bash_scripts/auto_quast.sh $(THREADS)
 
 # uses BBMap to get the genome coverage
-outputs/coverages/%_cov.txt: ./bash_scripts/auto_cov.sh outputs/spadesOut/*/scaffolds.fasta
+outputs/coverages/%_cov.txt: ./bash_scripts/auto_cov.sh outputs/spadesOut/%/scaffolds.fasta
 	./bash_scripts/auto_cov.sh $(THREADS)
 
 clean:
