@@ -1,0 +1,13 @@
+#Summary
+#Generated on	Fri Aug 02 11:34:03 WEST 2019
+#Version	5
+chroms	1
+bases	4832206
+defined	2948876
+undefined	1883330
+contigs	6238
+scaffolds	6225
+interpad	300
+source	/home/dbalata/cyano_pipeline/outputs/spadesOut/noCyano_M1_S3_L001/scaffolds.fasta
+bytes	3218244
+last modified	1564741377000
