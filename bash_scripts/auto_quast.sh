@@ -16,8 +16,8 @@ done
 for f in ./outputs/spadesOut/*/scaffolds.fasta;
 do
  out="${f:20:-16}";
- echo -e "Running:\npython /home/dbalata/miniconda3/envs/quast_env/bin/quast  -r $ref -t 4 -o ./outputs/quastOut/$out $f"
- python /home/dbalata/miniconda3/envs/quast_env/bin/quast  -r $ref -t 4 -o ./outputs/quastOut/$out $f;
+ echo -e "Running: python /home/dbalata/miniconda3/envs/quast_env/bin/quast  -r $ref -t $1 -o ./outputs/quastOut/$out $f"
+ python /home/dbalata/miniconda3/envs/quast_env/bin/quast  -r $ref -t $1 -o ./outputs/quastOut/$out $f;
 done
 
 conda deactivate
