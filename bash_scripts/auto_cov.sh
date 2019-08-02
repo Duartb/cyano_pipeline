@@ -8,6 +8,6 @@ do
  cov="${f:24:-30}_cov.txt"
 
  echo "Running: in1=$r1 in2=$r2 ref=./outputs/spadesOut/$sample/scaffolds.fasta covstats=./outputs/coverages/$cov"
- bbmap.sh in1=$r1 in2=$r2 ref=./outputs/spadesOut/$sample/scaffolds.fasta covstats=./outputs/coverages/$cov;
+ bbmap.sh in1=$r1 in2=$r2 ref=./outputs/spadesOut/$sample/scaffolds.fasta covstats=./outputs/coverages/$cov path=./outputs/coverages;
 
 done
