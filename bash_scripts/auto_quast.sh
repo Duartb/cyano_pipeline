@@ -6,7 +6,7 @@
 
 mkdir -p ./outputs/quastOut
 
-source /home/dbalata/miniconda3/bin/activate quast_env
+source activate quast_env
 
 for file in ./refGenome/*.fasta
 do

@@ -1,6 +1,6 @@
 mkdir -p ./outputs/fastqcOut/finalReads
 
-source /home/dbalata/miniconda3/bin/activate fastqc_env
+source activate fastqc_env
 
 for f in ./outputs/readsFiltered/*.fastq;
 do

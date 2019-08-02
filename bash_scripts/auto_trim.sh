@@ -4,7 +4,7 @@
 
 mkdir -p ./outputs/readsTrimmed
 
-source /home/dbalata/miniconda3/bin/activate cutadapt_env
+source activate cutadapt_env
 
 for f in ./rawReads/*.fastq;
 do

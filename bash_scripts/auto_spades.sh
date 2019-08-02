@@ -2,7 +2,7 @@
 
 mkdir -p ./outputs/spadesOut
 
-source /home/dbalata/miniconda3/bin/activate spades_env
+source activate spades_env
 
 for f in ./outputs/readsFiltered/*_R1_001_trimmed_filtered.fastq;
 do

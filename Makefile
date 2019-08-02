@@ -18,8 +18,8 @@ THREADS := 8
 SHELL := /bin/bash
 
 all: outputs/fastqcOut/rawReads/$(SAMP_1_READ)_fastqc.html outputs/readsTrimmed/$(SAMP_1_READ)_trimmed.fastq \
-	outputs/readsFiltered/$(SAMP_1_READ)_trimmed_filtered.fastq outputs/fastqcOut/finalReads/$(SAMP_1_READ)_trimmed_filtered_fastqc.html outputs/spadesOut/$(SAMP_1)/scaffolds.fasta \
-	outputs/spadesOut/$(SAMP_1)/scaffolds.fasta outputs/quastOut/$(SAMP_1)/report.pdf outputs/coverages/$(SAMP_1)_cov.txt
+	outputs/readsFiltered/$(SAMP_1_READ)_trimmed_filtered.fastq outputs/fastqcOut/finalReads/$(SAMP_1_READ)_trimmed_filtered_fastqc.html outputs/krakenOut/$(SAMP_1).report \
+	outputs/spadesOut/$(SAMP_1)/scaffolds.fasta outputs/spadesOut/$(SAMP_1)/scaffolds.fasta outputs/quastOut/$(SAMP_1)/report.pdf outputs/coverages/$(SAMP_1)_cov.txt
 
 explore: outputs/fastqcOut/rawReads/$(SAMP_1_READ)_fastqc.html
 
@@ -47,6 +47,10 @@ outputs/readsFiltered/%_trimmed_filtered.fastq: ./bash_scripts/auto_filter.sh ou
 # uses FastQC to analyse the final reads
 outputs/fastqcOut/finalReads/%_trimmed_filtered_fastqc.html: ./bash_scripts/auto_fastqc_final.sh outputs/readsFiltered/%_trimmed_filtered.fastq
 	./bash_scripts/auto_fastqc_final.sh $(THREADS)
+
+# uses Kraken2 create a taxonomy classification of the present species (from the final reads)
+outputs/krakenOut/%.report: ./bash_scripts/auto_kraken.sh ./outputs/readsFiltered/%_R1_001_trimmed_filtered.fastq
+	./bash_scripts/auto_kraken.sh $(THREADS)
 
 # uses Spades to assemble the final reads
 outputs/spadesOut/%/scaffolds.fasta: ./bash_scripts/auto_spades.sh outputs/readsFiltered/%_R1_001_trimmed_filtered.fastq
