@@ -12,9 +12,9 @@ MAX_GC := 0.63
 SHELL := /bin/bash
 CONDAROOT := /home/dbalata/miniconda3
 
-all: rawReads/$(FILE_1).fastq outputs/fastqcOut/rawReads/$(FILE_1)_fastqc.html outputs/readsTrimmed/$(FILE_1)_trimmed.fastq \
-	outputs/readsFiltered/$(FILE_1)_trimmed_filtered.fastq outputs/fastqcOut/finalReads/$(FILE_1)_trimmed_filtered_fastqc.html outputs/spadesOut/$(FILE_1)/scaffolds.fasta \
-	outputs/spadesOut/$(FILE_1)/contigs.fasta outputs/quastOut/$(FILE_1)/report.pdf
+all: rawReads/*_R1_001.fastq outputs/fastqcOut/rawReads/*_fastqc.html outputs/readsTrimmed/*_trimmed.fastq \
+	outputs/readsFiltered/*_filtered.fastq outputs/fastqcOut/finalReads/*_fastqc.html outputs/spadesOut/*/scaffolds.fasta \
+	outputs/spadesOut/*/contigs.fasta outputs/quastOut/*/report.pdf
 
 #rawReads/%_1.fq: bash_scripts/rename.sh rawReads/%_R1_001.fastq rawReads/%_R2_001.fastq
 #	./bash_scripts/rename.sh
@@ -36,7 +36,7 @@ outputs/fastqcOut/finalReads/%_fastqc.html: ./bash_scripts/auto_fastqc_final.sh 
 	./bash_scripts/auto_fastqc_final.sh
 
 # uses Spades
-outputs/spadesOut/%/scaffolds.fasta: ./bash_scripts/auto_spades.sh outputs/readsFiltered/%_trimmed_filtered.fastq
+outputs/spadesOut/%/scaffolds.fasta: ./bash_scripts/auto_spades.sh outputs/readsFiltered/%.fastq
 	./bash_scripts/auto_spades.sh
 
 # uses Quast

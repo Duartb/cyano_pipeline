@@ -6,11 +6,11 @@ mkdir -p ./outputs/readsTrimmed
 
 source /home/dbalata/miniconda3/bin/activate cutadapt_env
 
-for f in ./rawReads/*.fq;
+for f in ./rawReads/*.fastq;
 do
- out="${f:11:-3}_trimmed.fq"
+ out="${f:11:-6}_trimmed.fastq"
  echo -e "Running:\ncutadapt -u 17 -u -5 $f -o ./outputs/readsTrimmed/$out"
- cutadapt -u 17 -u -5 $f -o ./outputs/readsTrimmed/$out;
+ cutadapt -u $1 -u $2 $f -o ./outputs/readsTrimmed/$out;
 done
 
 conda deactivate
