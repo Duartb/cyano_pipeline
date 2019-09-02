@@ -1,23 +1,14 @@
-#!/usr/bin/env bash
 set -e
-mkdir -p ./outputs/quastOut
 
 #Setting for progress bar
 res=$(find ./outputs/spadesOut/*/contigs.fasta -maxdepth 0 | wc -l); i=1; progress=$(($i * 50 / $res ));
-echo ""; printf "\nRunning Quast on $res assembled contigs files ($1 threads):\n\n"
+echo ""; printf "\nRunning custom filtering script on $res assembled contigs files:\n\n"
 Red='\e[31m'; Green='\e[32m'; Yellow='\e[33m'; NoColor='\033[0m'
 
-source activate quast_env
-
-for file in ./refGenome/*.fasta
-do
- ref=$file
-done
-
-for f in ./outputs/spadesOut/*/contigs.fasta;
+for f in ./outputs/spadesOut/cyano_*/contigs.fasta;
 do
   # Naming inputs/ output
-  out="${f:20:-14}";
+  out="${f:20:-16}";
 
   # Drawing progress Bar
   echo -n "["
@@ -30,10 +21,8 @@ do
   ((i++)); progress=$(($i * 50 / $res ))
 
   # Writing run log
-  echo -e "$(date) [QUAST] python /home/dbalata/miniconda3/envs/quast_env/bin/quast  -r $ref -t $1 -o ./outputs/quastOut/$out $f  : done" >> ./outputs/commands.log
+  echo "python3 ./python_scripts/test_gc_cov.py $f -o $1 -ml $2" >> ./outputs/commands.log
 
-  # Running Quast
-  python /home/dbalata/miniconda3/envs/quast_env/bin/quast  -r $ref -t $1 -o ./outputs/quastOut/$out $f >> ./outputs/console.log 2>> ./outputs/console.log;
+  # Running cv_filter script
+  python3 ./python_scripts/test_gc_cov.py $f -o $1 -ml $2 >> ./outputs/coverage_peaks.txt 2>> ./outputs/console.log;
 done
-
-conda deactivate

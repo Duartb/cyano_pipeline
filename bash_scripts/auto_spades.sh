@@ -4,11 +4,12 @@ mkdir -p ./outputs/spadesOut
 
 #Setting for progress bar
 res=$(find ./outputs/readsFiltered/*_R1_001_trimmed_filtered.fastq -maxdepth 0 | wc -l); i=1; progress=$(($i * 50 / $res ));
-echo ""; printf "\nRunning SPAdes on $res processed of raw reads files ($1 threads):\n\n"
+echo ""; printf "\nRunning SPAdes on $res pairs of processed raw reads files ($1 threads):\n\n"
+Red='\e[31m'; Green='\e[32m'; Yellow='\e[33m'; NoColor='\033[0m'
 
 source activate spades_env
 
-for f in ./outputs/readsFiltered/*_R1_001_trimmed_filtered.fastq;
+for f in ./outputs/readsFiltered/cyano*_R1_001_trimmed_filtered.fastq;
 do
 
   # Naming inputs/ output
@@ -18,8 +19,11 @@ do
 
   # Drawing progress Bar
   echo -n "["
-  for ((j=0; j<progress; j++)) ; do echo -n '#'; done
-  for ((j=progress; j<50; j++)) ; do echo -n ' '; done
+  for ((j=0; j<progress; j++)) ; do
+  if (( $i < ($res*1/3) )); then echo -ne "${Red}#${NoColor}"
+  elif (( $i < ($res*2/3) )); then echo -ne "${Yellow}#${NoColor}"
+  else echo -ne "${Green}#${NoColor}"; fi; done
+  for ((j=progress; j<50; j++)) ; do echo -ne ' '; done
   echo -n "]  ($i/$res)  $out" $'\r'
   ((i++)); progress=$(($i * 50 / $res ))
 

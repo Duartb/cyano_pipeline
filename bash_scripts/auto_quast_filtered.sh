@@ -3,21 +3,21 @@ set -e
 mkdir -p ./outputs/quastOut
 
 #Setting for progress bar
-res=$(find ./outputs/spadesOut/*/contigs.fasta -maxdepth 0 | wc -l); i=1; progress=$(($i * 50 / $res ));
-echo ""; printf "\nRunning Quast on $res assembled contigs files ($1 threads):\n\n"
+res=$(find ./outputs/spadesOut/*/contigs_filtered.fasta -maxdepth 0 | wc -l); i=1; progress=$(($i * 50 / $res ));
+echo ""; printf "\nRunning Quast on $res filtered assembled contigs files ($1 threads):\n\n"
 Red='\e[31m'; Green='\e[32m'; Yellow='\e[33m'; NoColor='\033[0m'
 
 source activate quast_env
 
-for file in ./refGenome/*.fasta
+for file in ./refGenome/*
 do
  ref=$file
 done
 
-for f in ./outputs/spadesOut/*/contigs.fasta;
+for f in ./outputs/spadesOut/*/contigs_filtered.fasta;
 do
   # Naming inputs/ output
-  out="${f:20:-14}";
+  out="${f:20:-23}_filtered";
 
   # Drawing progress Bar
   echo -n "["
