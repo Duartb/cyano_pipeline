@@ -1,2 +1,0 @@
-gc_content	36.9
-genome_size	5924470
