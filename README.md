@@ -9,3 +9,5 @@
 3. Use `make` to run the data analysis or `make clean` to remove the outputs of your previous analysis;
 4. ???
 5. Profit!
+
+![Pipeline](/resources/pipeline.png?raw=true "CyanoPipe")
