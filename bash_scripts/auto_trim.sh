@@ -11,6 +11,8 @@ source activate cutadapt_env
 
 for f in ./rawReads/*.fastq;
 do
+  # Naming outputs
+  out="${f:11:-6}_trimmed.fastq"
 
   # Drawing progress Bar
   echo -n "["
@@ -21,9 +23,6 @@ do
   for ((j=progress; j<50; j++)) ; do echo -ne ' '; done
   echo -n "]  ($i/$res)  $(basename $f)" $'\r'
   ((i++)); progress=$(($i * 50 / $res ))
-
-  # Naming outputs
-  out="${f:11:-6}_trimmed.fastq"
 
   # Writing run log
   echo -e "$(date) [CUTADAPT_TRIMMING] cutadapt -u $1 -u $2 $f -o ./outputs/readsTrimmed/$out : done" >> ./outputs/commands.log

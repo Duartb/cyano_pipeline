@@ -21,7 +21,6 @@ do
   for ((j=progress; j<50; j++)) ; do echo -ne ' '; done
   echo -ne "] ($i/$res) $(basename $f .fastq)" $'\r'
   ((i++));  progress=$(($i * 50 / $res ))
-  #percent=$(($i * 100 / $res ))
 
   # Writing run log
   echo "$(date) [FASTQC_RAW] fastqc $f --outdir=./outputs/fastqcOut/rawReads/ -t $1 : done" >> ./outputs/commands.log

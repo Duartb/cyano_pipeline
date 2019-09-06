@@ -3,7 +3,7 @@ set -e
 mkdir -p ./outputs/fastqcOut/finalReads
 
 #Setting for progress bar
-res=$(find ./outputs/readsFiltered/*.fastq -maxdepth 0 | wc -l); i=1; progress=$(($i * 50 / $res ));
+res=$(find ./outputs/readsFiltered/*trimmed_filtered.fastq -maxdepth 0 | wc -l); i=1; progress=$(($i * 50 / $res ));
 echo ""; printf "\nRunning FastQC on $res processed reads files ($1 threads):\n\n"
 Red='\e[31m'; Green='\e[32m'; Yellow='\e[33m'; NoColor='\033[0m'
 
@@ -11,7 +11,7 @@ source activate fastqc_env
 
 for f in ./outputs/readsFiltered/*_trimmed_filtered.fastq;
 do
-
+  # Naming inputs/ outputs
   base_name="${f:24:-23}"
 
   # Drawing progress Bar

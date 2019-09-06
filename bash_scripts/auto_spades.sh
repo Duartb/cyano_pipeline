@@ -9,7 +9,7 @@ Red='\e[31m'; Green='\e[32m'; Yellow='\e[33m'; NoColor='\033[0m'
 
 source activate spades_env
 
-for f in ./outputs/readsFiltered/cyano*_R1_001_trimmed_filtered.fastq;
+for f in ./outputs/readsFiltered/*_R1_001_trimmed_filtered.fastq;
 do
 
   # Naming inputs/ output
