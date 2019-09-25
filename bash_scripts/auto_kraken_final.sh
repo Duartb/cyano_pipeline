@@ -26,10 +26,10 @@ do
   ((i++)); progress=$(($i * 50 / $res ))
 
   # Writing run log
-  echo -e "$(date) [KRAKEN2] kraken2 --db ~/tools/kraken2/ $f --report ./outputs/krakenOut/final/$f  --threads $1 : done" >> ./outputs/commands.log
+  echo -e "$(date) [KRAKEN2] kraken2 --db ~/tools/$2 $f --report ./outputs/krakenOut/final/$f  --threads $1 : done" >> ./outputs/commands.log
 
   # Writing run log
-  kraken2 --db ~/tools/kraken2/ $f --report ./outputs/krakenOut/final/reports/$base_name.report --output ./outputs/krakenOut/final/outputs/$base_name.output --threads $1 >> ./outputs/console.log 2>> ./outputs/console.log;
+  kraken2 --db ~/tools/$2 $f --report ./outputs/krakenOut/final/reports/$base_name.report --output ./outputs/krakenOut/final/outputs/$base_name.output --threads $1 >> ./outputs/console.log 2>> ./outputs/console.log;
 done
 
 conda deactivate

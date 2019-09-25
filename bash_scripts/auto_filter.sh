@@ -4,7 +4,7 @@ mkdir -p ./outputs/readsFiltered/
 
 #Setting for progress bar
 res=$(find ./outputs/readsTrimmed/*_R1_001_trimmed.fastq -maxdepth 0 | wc -l); i=1; progress=$(($i * 50 / $res ));
-echo ""; printf "\nRunning BBDuk Quality filtering on $res pairs of raw reads files ($4 threads):\n\n"
+echo ""; printf "\nRunning BBDuk Quality filtering on $res pairs of raw reads files ($2 threads):\n\n"
 Red='\e[31m'; Green='\e[32m'; Yellow='\e[33m'; NoColor='\033[0m'
 
 for f in ./outputs/readsTrimmed/*_R1_001_trimmed.fastq;
