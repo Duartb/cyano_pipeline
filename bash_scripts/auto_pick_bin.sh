@@ -1,19 +1,19 @@
 set -e
 
-mkdir -p ./outputs/finalGenomes
+mkdir -p $1/finalGenomes
 
 echo ""; printf "\nFinding cyanobacterial bins...:\n\n"
 
-for file in ./refGenome/*.fasta
+for file in $2/*.fasta
 do
  ref=$file
 done
 
-echo -e "$(date) [PICK_BIN.PY] python3 ./python_scripts/pick_bin.py ./outputs/binned/ $ref ./refGenome/stats.txt" >> ./outputs/commands.log
+echo -e "$(date) [PICK_BIN.PY] python3 ./python_scripts/pick_bin.py $1/binned/ $ref $2/stats.txt" >> $1/commands.log
 
-python3 ./python_scripts/pick_bin.py ./outputs/binned/ $ref ./refGenome/stats.txt >> ./outputs/console.log 2>> ./outputs/console.log;
+python3 ./python_scripts/pick_bin.py $1/binned/ $ref $2/stats.txt >> $1/console.log 2>> $1/console.log;
 
-cat ./outputs/binned/best_bins.txt | while read line
+cat $1/binned/best_bins.txt | while read line
 do
-   cp ./outputs/binned/${line} ./outputs/finalGenomes/
+   cp $1/binned/${line} $1/finalGenomes/
 done

@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 set -e
-mkdir -p ./outputs/binned/$basename
+mkdir -p $1/binned/$basename
 
 #Setting for progress bar
-res=$(find ./outputs/readsFiltered/*_R1R2.fastq -maxdepth 0 | wc -l); i=1; progress=$(($i * 50 / $res ));
-echo ""; printf "\nRunning MaxBin2 on $res interleaved fastq files to bin sequences ($1 threads):\n\n"
+res=$(find $1/readsFiltered/*_R1R2.fastq -maxdepth 0 | wc -l); i=1; progress=$(($i * 50 / $res ));
+echo ""; printf "\nRunning MaxBin2 on $res interleaved fastq files to bin sequences ($2 threads):\n\n"
 Red='\e[31m'; Green='\e[32m'; Yellow='\e[33m'; NoColor='\033[0m'
 
 source activate maxbin2_env
 
-for f in ./outputs/readsFiltered/*_R1R2.fastq;
+for f in $1/readsFiltered/*_R1R2.fastq;
 do
   # Naming inputs/ output
-  base_name="${f:24:-11}";
+  base_name=${f##*/}; base_name="${base_name::-11}";
 
   # Drawing progress Bar
   echo -n "["
@@ -25,10 +25,10 @@ do
   ((i++)); progress=$(($i * 50 / $res ))
 
   # Writing run log
- echo "$(date) [MAXBIN2] run_MaxBin.pl -contig ./outputs/spadesOut/$base_name/contigs.fasta -reads $f -out ./outputs/binned/$base_name -thread $1 : done" >> ./outputs/commands.log
+ echo "$(date) [MAXBIN2] run_MaxBin.pl -contig $1/spadesOut/$base_name/contigs.fasta -reads $f -out $1/binned/$base_name -thread $2 : done" >> $1/commands.log
 
  # Running Quast
- run_MaxBin.pl -contig ./outputs/spadesOut/$base_name/contigs.fasta -reads $f -out ./outputs/binned/$base_name -thread $1 >>./outputs/console.log 2>> ./outputs/console.log;
+ run_MaxBin.pl -contig $1/spadesOut/$base_name/contigs.fasta -reads $f -out $1/binned/$base_name -thread $2 >>$1/console.log 2>> $1/console.log;
 done
 
 conda deactivate

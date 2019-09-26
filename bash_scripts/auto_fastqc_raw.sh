@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 set -e
-mkdir -p ./outputs/fastqcOut/rawReads
+mkdir -p $2/fastqcOut/rawReads
 
 #Setting for progress bar
-res=$(find ./rawReads/*.fastq -maxdepth 0 | wc -l); i=1; percent=0; percent=$(($i * 100 / $res )); progress=$(($i * 50 / $res ));
-echo ""; printf "\nRunning FastQC on $res raw reads files ($1 threads):\n\n"
+res=$(find $1/*.fastq -maxdepth 0 | wc -l); i=1; percent=0; percent=$(($i * 100 / $res )); progress=$(($i * 50 / $res ));
+echo ""; printf "\nRunning FastQC on $res raw reads files ($3 threads):\n\n"
 Red='\e[31m'; Green='\e[32m'; Yellow='\e[33m'; NoColor='\033[0m'
 
 source activate fastqc_env
 
-for f in ./rawReads/*.fastq;
+for f in $1/*.fastq;
 do
 
   # Drawing progress Bar
@@ -23,10 +23,10 @@ do
   ((i++));  progress=$(($i * 50 / $res ))
 
   # Writing run log
-  echo "$(date) [FASTQC_RAW] fastqc $f --outdir=./outputs/fastqcOut/rawReads/ -t $1 : done" >> ./outputs/commands.log
+  echo "$(date) [FASTQC_RAW] fastqc $f --outdir=$2/fastqcOut/rawReads/ -t $3 : done" >> $2/commands.log
 
   # Running FastQC
-  fastqc $f --outdir=./outputs/fastqcOut/rawReads/ -t $1 >>./outputs/console.log 2>> ./outputs/console.log;
+  fastqc $f --outdir=$2/fastqcOut/rawReads/ -t $3 >>$2/console.log 2>> $2/console.log;
 done
 
 conda deactivate

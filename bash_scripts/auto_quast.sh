@@ -1,23 +1,23 @@
 #!/usr/bin/env bash
 set -e
-mkdir -p ./outputs/quastOut
+mkdir -p $1/quastOut
 
 source activate quast_env
 
-for file in ./refGenome/*.fasta
+for file in $2/*.fasta
 do
  ref=$file
 done
 
 #Setting for progress bar
-res=$(find ./outputs/spadesOut/*/contigs.fasta -maxdepth 0 | wc -l); i=1; progress=$(($i * 50 / $res ));
-echo ""; printf "\nRunning Quast on $res cianobacterial binned contigs files ($1 threads):\n\n"
+res=$(find $1/spadesOut/*/contigs.fasta -maxdepth 0 | wc -l); i=1; progress=$(($i * 50 / $res ));
+echo ""; printf "\nRunning Quast on $res cianobacterial binned contigs files ($3 threads):\n\n"
 Red='\e[31m'; Green='\e[32m'; Yellow='\e[33m'; NoColor='\033[0m'
 
-for f in ./outputs/finalGenomes/*.fasta
+for f in $1/finalGenomes/*.fasta
 do
   # Naming inputs/ outputs
-  base_name="${f:23:-6}"
+  base_name=${f##*/}; base_name=${base_name%.*};
 
   # Drawing progress Bar
   echo -n "["
@@ -30,10 +30,10 @@ do
   ((i++)); progress=$(($i * 50 / $res ))
 
   # Writing run log
-  echo -e "$(date) [QUAST] python /home/dbalata/miniconda3/envs/quast_env/bin/quast -r $ref -t $1 -o ./outputs/quastOut/$base_name $f  : done" >> ./outputs/commands.log
+  echo -e "$(date) [QUAST] python /home/dbalata/miniconda3/envs/quast_env/bin/quast -r $ref -t $3 -o $1/quastOut/$base_name $f  : done" >> $1/commands.log
 
   # Running Quast
-  python /home/dbalata/miniconda3/envs/quast_env/bin/quast -r $ref -t $1 -o ./outputs/quastOut/$base_name $f >> ./outputs/console.log 2>> ./outputs/console.log;
+  python /home/dbalata/miniconda3/envs/quast_env/bin/quast -r $ref -t $3 -o $1/quastOut/$base_name $f >> $1/console.log 2>> $1/console.log;
 done
 
 conda deactivate
