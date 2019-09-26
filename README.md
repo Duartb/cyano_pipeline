@@ -10,4 +10,4 @@
 4. ???
 5. Profit!
 
-![Pipeline](/resources/pipeline.png?raw=true "CyanoPipe")
+![Pipeline](/resources/pipeline_flow.png?raw=true "CyanoPipe")
