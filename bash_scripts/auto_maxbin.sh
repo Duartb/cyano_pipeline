@@ -25,10 +25,10 @@ do
   ((i++)); progress=$(($i * 50 / $res ))
 
   # Writing run log
- echo "$(date) [MAXBIN2] run_MaxBin.pl -contig $1/spadesOut/$base_name/contigs.fasta -reads $f -out $1/binned/$base_name -thread $2 : done" >> $1/commands.log
+ echo "$(date) [MAXBIN2] run_MaxBin.pl -contig $1/spadesOut/$base_name/contigs.fasta -reads $f -out $1/binned/$base_name -prob_threshold 0.95 -plotmarker -thread $2 : done" >> $1/commands.log
 
  # Running Quast
- run_MaxBin.pl -contig $1/spadesOut/$base_name/contigs.fasta -reads $f -out $1/binned/$base_name -thread $2 >>$1/console.log 2>> $1/console.log;
+ run_MaxBin.pl -contig $1/spadesOut/$base_name/contigs.fasta -reads $f -out $1/binned/$base_name -prob_threshold 0.95 -plotmarker -thread $2 >>$1/console.log 2>> $1/console.log;
 done
 
 conda deactivate

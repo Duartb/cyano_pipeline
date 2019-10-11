@@ -27,9 +27,10 @@ do
   echo -n "]  ($i/$res)  $out" $'\r'
   ((i++)); progress=$(($i * 50 / $res ))
 
-  echo -e "$(date) [SPADES] spades.py -k 21,33,55,77 --careful -1 $f1 -2 $f2 -o $1/spadesOut/$out -t $2 : done" >> $1/commands.log
+  echo -e "$(date) [SPADES] spades.py -k 21,33,55,77,99,127 --careful -1 $f1 -2 $f2 -o $1/spadesOut/$out -t $2 : done" >> $1/commands.log
 
-  spades.py -k 21,33,55,77 --careful -1 $f1 -2 $f2 -o $1/spadesOut/$out -t $2 >>$1/console.log 2>> $1/console.log;
+  # Run SPAdes
+  spades.py -k 21,33,55,77,99,127 --careful -1 $f1 -2 $f2 -o $1/spadesOut/$out -t $2 >>$1/console.log 2>> $1/console.log;
  done
 
 conda deactivate

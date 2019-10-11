@@ -1,4 +1,4 @@
-.PHONY: all clean clean_intermediate read_quality
+.PHONY: all clean clean_intermediate read_quality binning final_taxonomy mapping
 
 # input fastq files directory (can be passed via command line  eg. make FASTQ_DIR=/path/to/dir)
 FASTQ_DIR := ./rawReads/
@@ -32,6 +32,13 @@ all: $(OUTPUT_DIR)/fastqcOut/rawReads/$(SAMP_1_READ)_fastqc.html $(OUTPUT_DIR)/r
 	$(OUTPUT_DIR)/quastOut/$(SAMP_1_BIN)/report.pdf $(OUTPUT_DIR)/krakenOut/final/reports/$(SAMP_1_BIN).report
 
 read_quality: $(OUTPUT_DIR)/fastqcOut/rawReads/$(SAMP_1_READ)_fastqc.html
+
+binning: $(OUTPUT_DIR)/binned/$(SAMP_1).001.fasta
+
+final_taxonomy: $(OUTPUT_DIR)/krakenOut/final/reports/$(SAMP_1_BIN).report
+
+mapping: $(OUTPUT_DIR)/coverages/$(SAMP_1)_cov.txt
+
 
 # RULES
 
@@ -75,7 +82,7 @@ $(OUTPUT_DIR)/krakenOut/final/reports/%.report: ./bash_scripts/auto_kraken_final
 	@./bash_scripts/auto_kraken_final.sh $(OUTPUT_DIR) $(KRAKEN_DB) $(THREADS)
 
 # uses BBMap to get the genome coverage
-$(OUTPUT_DIR)/coverages/%_cov.txt: ./bash_scripts/auto_cov.sh $(OUTPUT_DIR)/finalGenomes/%.fasta
+$(OUTPUT_DIR)/coverages/%_cov.txt: ./bash_scripts/auto_cov.sh $(wildcard $(OUTPUT_DIR)/spadesOut/%/contigs.fasta)
 	@./bash_scripts/auto_cov.sh $(OUTPUT_DIR) $(THREADS)
 
 clean:

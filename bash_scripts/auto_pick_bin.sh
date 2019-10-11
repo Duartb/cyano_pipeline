@@ -1,8 +1,11 @@
+#!/usr/bin/env bash
 set -e
 
 mkdir -p $1/finalGenomes
 
-echo ""; printf "\nFinding cyanobacterial bins...:\n\n"
+source activate base_env
+
+echo ""; printf "\nFinding cyanobacterial bins..."
 
 for file in $2/*.fasta
 do
@@ -17,3 +20,7 @@ cat $1/binned/best_bins.txt | while read line
 do
    cp $1/binned/${line} $1/finalGenomes/
 done
+
+conda deactivate
+
+echo ""; printf "\nBest bins selected!\n"
