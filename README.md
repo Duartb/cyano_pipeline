@@ -1,5 +1,5 @@
-# Pipeline to analyse Cyanobacteria genomes
-## From raw fastq read files to Quality Assessment and Feature Prediction
+# Pipeline to recover cyanobacteria genomes from metageme sequences
+## From raw metagenomic fastq read files to individual assembled bacteria genomes, with read filtering and quality checking
 
 **Requirements:**
 - python3
@@ -8,10 +8,8 @@
 **Usage:**
 
 1. Clone this repository to your machine;
-2. Add the raw bacterial Illumina reads to a subdirectory called *rawReads* insinde the directory. (note: Illumina pair reads
-  should have the standard output names ending in **R1_001.fastq** and **R2_001.fastq**);
-3. Use `make` to run the data analysis or `make clean` to remove the outputs of your previous analysis;
-4. ???
+2. Create docker image (working on it!)
+3. Run ```python3 Cyanopipeline.py```
 5. Profit!
 
 ![Pipeline](/resources/pipeline_flow.png?raw=true "CyanoPipe")
