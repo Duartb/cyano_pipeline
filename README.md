@@ -1,6 +1,10 @@
 # Pipeline to analyse Cyanobacteria genomes
 ## From raw fastq read files to Quality Assessment and Feature Prediction
 
+**Requirements:**
+- python3
+- pyqt5
+
 **Usage:**
 
 1. Clone this repository to your machine;
