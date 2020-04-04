@@ -16,9 +16,9 @@
 ```docker build -f Dockerfile . -t cyanopipe:1.0```
 4. Run CyanoPipeline GUI \
 ```docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -v $(pwd)/test:/app -e DISPLAY=$DISPLAY -u qtuser cyanopipe:1.0 python3 /home/CyanoPipeline/CyanoPipeline.py ```
-5. Copy the results to the host machine (replace <IMAGE_ID> with the ID of your docker image) \
-```docker cp <IMAGE_ID>:/foo.txt foo.txt``` \
-or check them inside the Docker container \
+5. Copy the results to the host machine (replace <CONTAINER_ID> with the ID of your docker container) \
+```docker cp <CONTAINER_ID>:/foo.txt foo.txt``` \
+or check them inside the Docker image \
 ```docker run -it -u qtuser cyanopipe:1.0```
 
 
