@@ -12,14 +12,14 @@
 2. Move your datasets and reference genomes into /myData (Illumina read datasets must be put into separate directories. Create output directories as you wish) e.g. \
 ```mkdir myData/Dataset1 && mkdir myData/refGenomes && mkdir myData/Outputs1``` \
 ```cp /path/to/dataset myData/Dataset1 && cp /path/to/reference myData/refGenomes```
-2. Build docker image \
+3. Build docker image \
 ```docker build -f Dockerfile . -t cyanopipe:1.0```
-3. Run CyanoPipeline GUI \
+4. Run CyanoPipeline GUI \
 ```docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -v $(pwd)/test:/app -e DISPLAY=$DISPLAY -u qtuser cyanopipe:1.0 python3 /home/CyanoPipeline/CyanoPipeline.py ```
-4. Copy the results to the host machine (replace <IMAGE_ID> with the ID of your docker image) \
+5. Copy the results to the host machine (replace <IMAGE_ID> with the ID of your docker image) \
 ```docker cp <IMAGE_ID>:/foo.txt foo.txt``` \
 or check them inside the Docker container \
 ```docker run -it -u qtuser cyanopipe:1.0```
-4. Profit!
+
 
 ![Pipeline](/resources/pipeline_flow.png?raw=true "CyanoPipe")
