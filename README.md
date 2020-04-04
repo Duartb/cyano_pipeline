@@ -6,7 +6,9 @@
 
 **Usage:**
 
-1. Clone this repository to your machine;
+1. Clone this repository to your machine and move into its directory \
+```git clone https://github.com/Duartb/cyano_pipeline``` \
+```cd path/to/cyano_pipeline```
 2. Build docker image \
 ```docker build -f Dockerfile . -t cyanopipe:1.0```
 3. Run CyanoPipeline GUI \
