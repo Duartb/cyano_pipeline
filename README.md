@@ -9,7 +9,9 @@
 1. Clone this repository to your machine and move into its directory \
 ```git clone https://github.com/Duartb/cyano_pipeline``` \
 ```cd path/to/cyano_pipeline```
-2. Move your datasets and reference genomes into /myData (Illumina read datasets must be put into separate directories. Create output directories as you wish).
+2. Move your datasets and reference genomes into /myData (Illumina read datasets must be put into separate directories. Create output directories as you wish) e.g. \
+```mkdir myData/Dataset1 && mkdir myData/refGenomes && mkdir myData/Outputs1``` \
+```cp /path/to/dataset myData/Dataset1 && cp /path/to/reference myData/refGenomes```
 2. Build docker image \
 ```docker build -f Dockerfile . -t cyanopipe:1.0```
 3. Run CyanoPipeline GUI \
