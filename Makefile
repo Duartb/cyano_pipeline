@@ -82,8 +82,8 @@ $(OUTPUT_DIR)/krakenOut/final/reports/%.report: ./bash_scripts/auto_kraken_final
 	@./bash_scripts/auto_kraken_final.sh $(OUTPUT_DIR) $(KRAKEN_DB) $(THREADS)
 
 # uses BBMap to get the genome coverage
-$(OUTPUT_DIR)/coverages/%_cov.txt: ./bash_scripts/auto_cov.sh $(wildcard $(OUTPUT_DIR)/spadesOut/%/contigs.fasta)
-	@./bash_scripts/auto_cov.sh $(OUTPUT_DIR) $(THREADS)
+$(OUTPUT_DIR)/coverages/%_cov.txt: ./bash_scripts/auto_map.sh $(wildcard $(OUTPUT_DIR)/spadesOut/%/contigs.fasta)
+	@./bash_scripts/auto_map.sh $(OUTPUT_DIR) $(THREADS)
 
 clean:
 	rm -r $(OUTPUT_DIR)

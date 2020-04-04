@@ -2,7 +2,8 @@
 set -e
 mkdir -p $1/quastOut
 
-source activate quast_env
+source /root/miniconda3/etc/profile.d/conda.sh
+conda activate quast_env
 
 for file in $2/*.fasta
 do

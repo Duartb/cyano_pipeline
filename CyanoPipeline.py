@@ -51,12 +51,14 @@ class Ui_MainWindow(object):
             last_outdir = output_dir
             last_fastqdir = fastq_dir
             if self.check_fastqc.isChecked():
-                os.system("make raw_quality" \
+                os.system("cd /home/CyanoPipeline/ &&" \
+                + " make raw_quality" \
                 + " FASTQ_DIR=" + fastq_dir \
                 + " OUTPUT_DIR=" + output_dir \
                 + " THREADS=" + thread_num)
             else:
-                os.system("make" \
+                os.system("cd /home/CyanoPipeline/ &&" \
+                + " make" \
                 + " FASTQ_DIR=" + fastq_dir \
                 + " TRIM_LEFT=" + left_cut \
                 + " TRIM_RIGHT=" + right_cut \
@@ -109,21 +111,21 @@ class Ui_MainWindow(object):
 
     def chooseFastq(self):
         global fastq_dir
-        fastq_dir = str(QFileDialog.getExistingDirectory(self, "Select Directory", "./"))
+        fastq_dir = str(QFileDialog.getExistingDirectory(self, "Select Directory", "/home/CyanoPipeline/myData/"))
         if len(fastq_dir) > 0:
             self.select_imp.setStyleSheet("background-color: green")
             self.select_imp.setText("Selected")
 
     def chooseRef(self):
         global ref_file
-        ref_file = QFileDialog.getOpenFileName(self, "Open File", "./", "*.fasta *.fsa (*.fsa *.fasta)")
+        ref_file = QFileDialog.getOpenFileName(self, "Open File", "/home/CyanoPipeline/myData/", "*.fasta *.fsa (*.fsa *.fasta)")
         if len(ref_file[0]) > 0:
             self.select_ref.setStyleSheet("background-color: green")
             self.select_ref.setText("Selected")
 
     def chooseOutput(self):
         global output_dir
-        output_dir = str(QFileDialog.getExistingDirectory(self, "Select Directory", "./"))
+        output_dir = str(QFileDialog.getExistingDirectory(self, "Select Directory", "/home/CyanoPipeline/myData/"))
         if len(output_dir) > 0:
             self.select_out.setStyleSheet("background-color: green")
             self.select_out.setText("Selected")
@@ -305,8 +307,8 @@ class Ui_MainWindow(object):
         global _translate
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "CyanoPipeline"))
-        self.pick_16s.setText(_translate("MainWindow", "SILVA 16S"))
-        self.pick_refseq.setText(_translate("MainWindow", "Refseq Genomic"))
+        self.pick_16s.setText(_translate("MainWindow", "SILVA 16"))
+        self.pick_refseq.setText(_translate("MainWindow", "Standard"))
         self.select_out.setText(_translate("MainWindow", "Select directory..."))
         self.select_ref.setText(_translate("MainWindow", "Select file..."))
         self.select_imp.setText(_translate("MainWindow", "Select directory..."))

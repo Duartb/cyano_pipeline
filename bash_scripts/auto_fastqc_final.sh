@@ -7,7 +7,8 @@ res=$(find $1/readsFiltered/*trimmed_filtered.fastq -maxdepth 0 | wc -l); i=1; p
 echo ""; printf "\nRunning FastQC on $res processed reads files ($2 threads):\n\n"
 Red='\e[31m'; Green='\e[32m'; Yellow='\e[33m'; NoColor='\033[0m'
 
-source activate fastqc_env
+source /root/miniconda3/etc/profile.d/conda.sh
+conda activate fastqc_env
 
 for f in $1/readsFiltered/*_trimmed_filtered.fastq;
 do

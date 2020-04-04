@@ -7,7 +7,8 @@ res=$(find $1/readsFiltered/*_R1R2.fastq -maxdepth 0 | wc -l); i=1; progress=$((
 echo ""; printf "\nRunning MaxBin2 on $res interleaved fastq files to bin sequences ($2 threads):\n\n"
 Red='\e[31m'; Green='\e[32m'; Yellow='\e[33m'; NoColor='\033[0m'
 
-source activate maxbin2_env
+source /root/miniconda3/etc/profile.d/conda.sh
+conda activate maxbin2_env
 
 for f in $1/readsFiltered/*_R1R2.fastq;
 do

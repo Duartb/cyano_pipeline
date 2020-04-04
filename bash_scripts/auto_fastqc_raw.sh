@@ -7,7 +7,8 @@ res=$(find $1/*.fastq -maxdepth 0 | wc -l); i=1; percent=0; percent=$(($i * 100 
 echo ""; printf "\nRunning FastQC on $res raw reads files ($3 threads):\n\n"
 Red='\e[31m'; Green='\e[32m'; Yellow='\e[33m'; NoColor='\033[0m'
 
-source activate fastqc_env
+source /root/miniconda3/etc/profile.d/conda.sh
+conda activate fastqc_env
 
 for f in $1/*.fastq;
 do

@@ -1,0 +1,11 @@
+name: fastqc_env
+channels:
+  - bioconda
+  - defaults
+dependencies:
+  - fastqc=0.11.8=0
+  - libgcc-ng=8.2.0=hdf63c60_1
+  - openjdk=8.0.152=h46b5887_1
+  - perl=5.26.2=h14c3975_0
+prefix: /home/dbalata/miniconda3/envs/fastqc_env
+

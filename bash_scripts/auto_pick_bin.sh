@@ -3,7 +3,8 @@ set -e
 
 mkdir -p $1/finalGenomes
 
-source activate base_env
+source /root/miniconda3/etc/profile.d/conda.sh
+conda activate base_env
 
 echo ""; printf "\nFinding cyanobacterial bins..."
 
