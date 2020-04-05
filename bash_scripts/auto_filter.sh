@@ -32,13 +32,13 @@ do
   ((i++)); progress=$(($i * 50 / $res ))
 
   # Writing run log
-  echo -e "$(date) [BBDUK_FILTERING_QUALITY] ~/bbduk.sh in1=$1/readsTrimmed/$f1 in2=$1/readsTrimmed/$f2 out1=$1/readsFiltered/$output1 out2=$1/readsFiltered/$output2 trimq=$2 t=$3 : done" >> $1/commands.log
+  echo -e "$(date) [BBDUK_FILTERING_QUALITY] ~/bbduk.sh in1=$1/readsTrimmed/$f1 in2=$1/readsTrimmed/$f2 out1=$1/readsFiltered/$output1 out2=$1/readsFiltered/$output2 trimq=$2 t=$3 -Xmx4g: done" >> $1/commands.log
 
   # Running BBDuk
-  ~/bbmap/bbduk.sh in1=$1/readsTrimmed/$f1 in2=$1/readsTrimmed/$f2 out1=$1/readsFiltered/$output1 out2=$1/readsFiltered/$output2 trimq=$2 t=$3 >> $1/console.log 2>> $1/console.log
+  ~/bbmap/bbduk.sh in1=$1/readsTrimmed/$f1 in2=$1/readsTrimmed/$f2 out1=$1/readsFiltered/$output1 out2=$1/readsFiltered/$output2 trimq=$2 t=$3 -Xmx4g 2>> $1/console.log 2>> $1/console.log
 
   # Running BBSuit reformat
-  ~/bbmap/reformat.sh in1=$1/readsFiltered/$output1 in2=$1/readsFiltered/$output2 out=$1/readsFiltered/$interleaved overwrite=true >> $1/console.log 2>> $1/console.log;
+  ~/bbmap/reformat.sh in1=$1/readsFiltered/$output1 in2=$1/readsFiltered/$output2 out=$1/readsFiltered/$interleaved overwrite=true -Xmx4g >> $1/console.log 2>> $1/console.log;
 done
 
 conda deactivate

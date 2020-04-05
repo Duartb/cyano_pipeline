@@ -30,10 +30,10 @@ do
   ((i++)); progress=$(($i * 50 / $res ))
 
   # Writing run log
- echo "$(date) [BBMAP_COVERAGE] ~/bbmap/bbmap.sh in1=$1/readsFiltered/$r1 in2=$1/readsFiltered/$r2 ref=$f covstats=$1/coverages/$cov slow k=12 path=$1/coverages t=$2 : done" >> $1/commands.log
+ echo "$(date) [BBMAP_COVERAGE] ~/bbmap/bbmap.sh in1=$1/readsFiltered/$r1 in2=$1/readsFiltered/$r2 ref=$f covstats=$1/coverages/$cov slow k=12 path=$1/coverages t=$2 -Xmx4g : done" >> $1/commands.log
 
  # Running BBMap
- ~/bbmap/bbmap.sh in1=$1/readsFiltered/$r1 in2=$1/readsFiltered/$r2 ref=$f outm=$1/mappedReads/$base_name covstats=$1/coverages/$cov slow k=12 path=$1/coverages t=$2 >>$1/console.log 2>> $1/console.log;
+ ~/bbmap/bbmap.sh in1=$1/readsFiltered/$r1 in2=$1/readsFiltered/$r2 ref=$f outm=$1/mappedReads/$base_name covstats=$1/coverages/$cov slow k=12 path=$1/coverages t=$2 -Xmx4g >>$1/console.log 2>> $1/console.log;
 done
 
 conda deactivate
