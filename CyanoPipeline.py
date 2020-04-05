@@ -7,7 +7,7 @@ import os, sys
 class Ui_MainWindow(object):
 
     def newWindow(self):
-        os.system("python3 test.py")
+        os.system("python3 CyanoPipeline.py")
 
     def disableButtons(self):
         if self.check_fastqc.isChecked():
@@ -29,7 +29,7 @@ class Ui_MainWindow(object):
 
     def updateCut3(self):
         global right_cut
-        right_cut = str(self.cut_3.value())
+        right_cut = str(-self.cut_3.value())
 
 
     def updateThreads(self):
@@ -51,12 +51,24 @@ class Ui_MainWindow(object):
             last_outdir = output_dir
             last_fastqdir = fastq_dir
             if self.check_fastqc.isChecked():
+                print ("make read_quality" \
+                + " FASTQ_DIR=" + fastq_dir \
+                + " OUTPUT_DIR=" + output_dir \
+                + " THREADS=" + thread_num)
                 os.system("cd /home/CyanoPipeline/ &&" \
-                + " make raw_quality" \
+                + " make read_quality" \
                 + " FASTQ_DIR=" + fastq_dir \
                 + " OUTPUT_DIR=" + output_dir \
                 + " THREADS=" + thread_num)
             else:
+                print("make" \
+                + " FASTQ_DIR=" + fastq_dir \
+                + " TRIM_LEFT=" + left_cut \
+                + " TRIM_RIGHT=" + right_cut \
+                + " REF=" + ref_file[0] \
+                + " OUTPUT_DIR=" + output_dir \
+                + " KRAKEN_DB=" + database \
+                + " THREADS=" + thread_num)
                 os.system("cd /home/CyanoPipeline/ &&" \
                 + " make" \
                 + " FASTQ_DIR=" + fastq_dir \
@@ -125,7 +137,7 @@ class Ui_MainWindow(object):
 
     def chooseOutput(self):
         global output_dir
-        output_dir = str(QFileDialog.getExistingDirectory(self, "Select Directory", "/home/CyanoPipeline/myData/"))
+        output_dir = str(QFileDialog.getExistingDirectory(self, "Select Directory", "/home/CyanoPipeline/outputs/"))
         if len(output_dir) > 0:
             self.select_out.setStyleSheet("background-color: green")
             self.select_out.setText("Selected")
@@ -336,7 +348,7 @@ if __name__ == "__main__":
     # defaults
     thread_num = "1"
     right_cut = "15"
-    left_cut = "5"
+    left_cut = "-5"
 
     app = QtWidgets.QApplication(sys.argv)
 

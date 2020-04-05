@@ -1,13 +1,6 @@
+SHELL:=/bin/bash
+
 .PHONY: all clean clean_intermediate read_quality binning final_taxonomy mapping
-
-# input fastq files directory (can be passed via command line  eg. make FASTQ_DIR=/path/to/dir)
-FASTQ_DIR := ./rawReads/
-
-# input ref genome files directory (must contain only the reference genome fasta. Can be passed via command line  eg. make REF_DIR=/path/to/dir)
-REF_DIR := ./refGenome/
-
-# output files directory (can be passed via command line  eg. make OUTPUT_DIR=/path/to/dir)
-OUTPUT_DIR := ./outputs/
 
 # Select the amount of bases to cut from the ends of each read using CutAdapt (tip: adjust after using 'make read_quality')
 TRIM_LEFT := 17
@@ -72,11 +65,11 @@ $(OUTPUT_DIR)/binned/%.001.fasta: ./bash_scripts/auto_maxbin.sh $(wildcard $(OUT
 
 # uses a custom script to choose what bin has the biggest probability of corresponding to the species of interest
 $(OUTPUT_DIR)/binned/best_bins.txt: ./bash_scripts/auto_pick_bin.sh ./python_scripts/pick_bin.py $(wildcard $(OUTPUT_DIR)/binned/*.001.fasta)
-	@./bash_scripts/auto_pick_bin.sh $(OUTPUT_DIR) $(REF_DIR)
+	@./bash_scripts/auto_pick_bin.sh $(OUTPUT_DIR) $(REF)
 
 # uses Quast to analyse Spades' assembly quality post binning
 $(OUTPUT_DIR)/quastOut/%/report.pdf: ./bash_scripts/auto_quast.sh $(OUTPUT_DIR)/binned/%.fasta
-	@./bash_scripts/auto_quast.sh $(OUTPUT_DIR) $(REF_DIR) $(THREADS)
+	@./bash_scripts/auto_quast.sh $(OUTPUT_DIR) $(THREADS)
 
 $(OUTPUT_DIR)/krakenOut/final/reports/%.report: ./bash_scripts/auto_kraken_final.sh $(OUTPUT_DIR)/binned/%.fasta
 	@./bash_scripts/auto_kraken_final.sh $(OUTPUT_DIR) $(KRAKEN_DB) $(THREADS)

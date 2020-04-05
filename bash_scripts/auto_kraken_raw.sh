@@ -8,14 +8,16 @@ res=$(find $1/readsFiltered/*_R1_001_trimmed_filtered.fastq -maxdepth 0 | wc -l)
 echo ""; printf "\nRunning Kraken2 on $res pairs of raw reads files ($3 threads):\n\n"
 Red='\e[31m'; Green='\e[32m'; Yellow='\e[33m'; NoColor='\033[0m'
 
-source /root/miniconda3/etc/profile.d/conda.sh
+source ~/miniconda3/etc/profile.d/conda.sh
 conda activate kraken2_env
 
-if [ ! -d "/home/kraken_db/$2" ]; then
+if [ ! -d "~/kraken_db/$2" ]; then
+  mkdir -p ~/kraken_db/$2
+  echo -e "Building Kraken2 database..."
   if [[ "$2" == "kraken_standard" ]]; then
-    kraken2-build --standard --db /home/kraken_db/$2
+    kraken2-build --standard --db ~/kraken_db/$2 >> $1/console.log 2>> $1/console.log;
   elif [[ "$2" == "kraken_silva_16s" ]]; then
-    kraken2-build --special_silva --db /home/kraken_db/$2
+    kraken2-build --special silva --db ~/kraken_db/$2 >> $1/console.log 2>> $1/console.log;
   fi
 fi
 
@@ -39,10 +41,10 @@ do
   ((i++)); progress=$(($i * 50 / $res ))
 
   # Writing run log
-  echo -e "$(date) [KRAKEN2] kraken2 --db /home/kraken_db/$2 --paired $f1 $f2 --report $1/krakenOut/raw/reports/$outR --output $1/krakenOut/raw/outputs/$outK --threads $3 : done" >> $1/commands.log
+  echo -e "$(date) [KRAKEN2] kraken2 --db ~/kraken_db/$2 --paired $f1 $f2 --report $1/krakenOut/raw/reports/$outR --output $1/krakenOut/raw/outputs/$outK --threads $3 : done" >> $1/commands.log
 
   # Writing run log
-  kraken2 --db /home/kraken_db/$2 --paired $f1 $f2 --report $1/krakenOut/raw/reports/$outR --output $1/krakenOut/raw/outputs/$outK --threads $3 >> $1/console.log 2>> $1/console.log;
+  kraken2 --db ~/kraken_db/$2 --paired $f1 $f2 --report $1/krakenOut/raw/reports/$outR --output $1/krakenOut/raw/outputs/$outK --threads $3 >> $1/console.log 2>> $1/console.log;
 done
 
 conda deactivate

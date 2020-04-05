@@ -7,7 +7,7 @@ res=$(find $1/readsFiltered/*_R1_001_trimmed_filtered.fastq -maxdepth 0 | wc -l)
 echo ""; printf "\nRunning SPAdes on $res pairs of processed raw reads files ($2 threads):\n\n"
 Red='\e[31m'; Green='\e[32m'; Yellow='\e[33m'; NoColor='\033[0m'
 
-source /root/miniconda3/etc/profile.d/conda.sh
+source ~/miniconda3/etc/profile.d/conda.sh
 conda activate spades_env
 
 for f in $1/readsFiltered/*_R1_001_trimmed_filtered.fastq;

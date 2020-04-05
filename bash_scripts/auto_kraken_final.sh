@@ -8,14 +8,15 @@ res=$(find $1/binned/*.fasta -maxdepth 0 | wc -l); i=1; progress=$(($i * 50 / $r
 echo ""; printf "\nRunning Kraken2 on $res pairs of processed reads files ($3 threads):\n\n"
 Red='\e[31m'; Green='\e[32m'; Yellow='\e[33m'; NoColor='\033[0m'
 
-source /root/miniconda3/etc/profile.d/conda.sh
+source /home/qtuser/miniconda3/etc/profile.d/conda.sh
 conda activate kraken2_env
 
-if [ ! -d "/home/kraken_db/$2" ]; then
+if [ ! -d "/home/qtuser/kraken_db/$2" ]; then
+  mkdir -p /home/qtuser/kraken_db/$2
   if [[ "$2" == "kraken_standard" ]]; then
-    kraken2-build --standard --db /home/kraken_db/$2
+    kraken2-build --standard --db /home/qtuser/kraken_db/$2
   elif [[ "$2" == "kraken_silva_16s" ]]; then
-    kraken2-build --special_silva --db /home/kraken_db/$2
+    kraken2-build --special silva --db /home/qtuser/kraken_db/$2
   fi
 fi
 
@@ -35,10 +36,10 @@ do
   ((i++)); progress=$(($i * 50 / $res ))
 
   # Writing run log
-  echo -e "$(date) [KRAKEN2] kraken2 --db /home/kraken_db/$2 $f --report $1/krakenOut/final/$f  --threads $3 : done" >> $1/commands.log
+  echo -e "$(date) [KRAKEN2] kraken2 --db /home/qtuser/kraken_db/$2 $f --report $1/krakenOut/final/$f  --threads $3 : done" >> $1/commands.log
 
   # Writing run log
-  kraken2 --db /home/kraken_db/$2 $f --report $1/krakenOut/final/reports/$base_name.report --output $1/krakenOut/final/outputs/$base_name.output --threads $3 >> $1/console.log 2>> $1/console.log;
+  kraken2 --db /home/qtuser/kraken_db/$2 $f --report $1/krakenOut/final/reports/$base_name.report --output $1/krakenOut/final/outputs/$base_name.output --threads $3 >> $1/console.log 2>> $1/console.log;
 done
 
 conda deactivate

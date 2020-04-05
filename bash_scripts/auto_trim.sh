@@ -7,7 +7,7 @@ res=$(find $1/*.fastq -maxdepth 0 | wc -l); i=1; progress=$(($i * 50 / $res ));
 echo ""; printf "\nRunning CutAdapt trimming on $res raw reads files:\n\n"
 Red='\e[31m'; Green='\e[32m'; Yellow='\e[33m'; NoColor='\033[0m'
 
-source /root/miniconda3/etc/profile.d/conda.sh
+source ~/miniconda3/etc/profile.d/conda.sh
 conda activate cutadapt_env
 
 for f in $1/*.fastq;

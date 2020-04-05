@@ -7,7 +7,7 @@ res=$(find $1/readsFiltered/*_R1_001_trimmed_filtered.fastq -maxdepth 0 | wc -l)
 echo ""; printf "\nRunning BBMap on $res assembled cianobacterial contigs files to check coverage ($2 threads):\n\n"
 Red='\e[31m'; Green='\e[32m'; Yellow='\e[33m'; NoColor='\033[0m'
 
-source /root/miniconda3/etc/profile.d/conda.sh
+source ~/miniconda3/etc/profile.d/conda.sh
 conda activate base_env
 
 for f in $1/spadesOut/*/contigs.fasta;
@@ -30,10 +30,10 @@ do
   ((i++)); progress=$(($i * 50 / $res ))
 
   # Writing run log
- echo "$(date) [BBMAP_COVERAGE] /home/qtuser/bbmap/bbmap.sh in1=$1/readsFiltered/$r1 in2=$1/readsFiltered/$r2 ref=$f covstats=$1/coverages/$cov slow k=12 path=$1/coverages t=$2 : done" >> $1/commands.log
+ echo "$(date) [BBMAP_COVERAGE] ~/bbmap/bbmap.sh in1=$1/readsFiltered/$r1 in2=$1/readsFiltered/$r2 ref=$f covstats=$1/coverages/$cov slow k=12 path=$1/coverages t=$2 : done" >> $1/commands.log
 
  # Running BBMap
- /home/qtuser/bbmap/bbmap.sh in1=$1/readsFiltered/$r1 in2=$1/readsFiltered/$r2 ref=$f outm=$1/mappedReads/$base_name covstats=$1/coverages/$cov slow k=12 path=$1/coverages t=$2 >>$1/console.log 2>> $1/console.log;
+ ~/bbmap/bbmap.sh in1=$1/readsFiltered/$r1 in2=$1/readsFiltered/$r2 ref=$f outm=$1/mappedReads/$base_name covstats=$1/coverages/$cov slow k=12 path=$1/coverages t=$2 >>$1/console.log 2>> $1/console.log;
 done
 
 conda deactivate

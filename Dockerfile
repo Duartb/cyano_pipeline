@@ -8,14 +8,13 @@ SHELL ["/bin/bash", "-c"]
 RUN apt-get update && yes|apt-get upgrade
 
 # Adding wget and bzip2
-RUN apt-get install -y wget bzip2 make sudo
+RUN apt-get install -y wget bzip2 make sudo python3-pyqt5 default-jre
 
+# Copying the pipeline and making bash scripts executable
 COPY ./ /home/CyanoPipeline/
 
 # Creating user
 RUN adduser --disabled-password --gecos '' qtuser
-# RUN adduser qtuser sudo
-# RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN chown -R qtuser: /home/qtuser && chown -R qtuser: /home/CyanoPipeline
 USER qtuser
 
