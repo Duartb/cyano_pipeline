@@ -14,12 +14,9 @@
 ```cp /path/to/dataset myData/Dataset1 && cp /path/to/reference myData/refGenomes```
 3. Build docker image \
 ```docker build -f Dockerfile . -t cyanopipe:1.0```
-4. Run CyanoPipeline GUI \
-```docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -v $(pwd)/test:/app -e DISPLAY=$DISPLAY -u qtuser cyanopipe:1.0 python3 /home/CyanoPipeline/CyanoPipeline.py ```
-5. Copy the results to the host machine (replace <CONTAINER_ID> with the ID of your docker container) \
-```docker cp <CONTAINER_ID>:/foo.txt foo.txt``` \
-or check them inside the Docker image \
-```docker run -it -u qtuser cyanopipe:1.0```
+4. Run CyanoPipeline GUI (choose an output dir inside CyanoPipeline/outputs/ to have access on local host)\
+```ddocker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -v $(pwd)/outputs:/home/CyanoPipeline/outputs -e DISPLAY=$DISPLAY -u qtuser cyanopipe:1.0 python3 /home/CyanoPipeline/CyanoPipeline.py```
 
 
+![GUI](/resources/pipeline_gui.png?raw=true "CyanoPipe")
 ![Pipeline](/resources/pipeline_flow.png?raw=true "CyanoPipe")
