@@ -1,4 +1,4 @@
-# Pipeline to recover cyanobacteria genomes from metageme sequences
+# Pipeline to recover bacterial genomes from metageme sequences
 ## From raw metagenomic fastq read files to individual assembled bacteria genomes, with read filtering and quality checking
 
 **Requirements:**
